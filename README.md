@@ -29,6 +29,11 @@ It's a simple (and a bit primitive) tool that will generate the perspective grid
 ### 07. Tadaa
 ![alt text](https://github.com/Ryuguu-Chan/ryuryuPerspectiveGridGenerator/blob/master/pic07.png)
 
-## THINGS TO DO
+## TODOLIST
 
-° implementing the Undo/Redo functionality
+° implementing the Undo/Redo functionality<br/>
+° implementing code that will let the user placing the vanishing points far beyond the panel and window zone<br/>
+° letting the user choose the amount of lines to be drawn<br/>
+° letting the user choosing a background image if they want to<br/>
+° all the lines could be editable on live<br/>
+° probably other things in the future...
