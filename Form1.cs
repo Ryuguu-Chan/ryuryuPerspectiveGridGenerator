@@ -19,6 +19,8 @@ namespace ryuryuPerspectiveGridGenerator
 
         private int mousePosX, mousePosY;
 
+        public static int quantityTemp = 0;
+
         private Bitmap futureImage;
 
         public Form1()
@@ -34,6 +36,7 @@ namespace ryuryuPerspectiveGridGenerator
 
             this.Text = "ryuryuPerspectiveGridGenerator (made by Ogan Özkul aka Ryuguu Chan): " + canvasWidth + ";" + canvasHeight;
         }
+
 
         private void panel1_MouseClick(object sender, MouseEventArgs e)
         {
@@ -81,47 +84,67 @@ namespace ryuryuPerspectiveGridGenerator
             float percentPanel1X = ((float)mousePosX / (float)pictureBox1.Width);
             float percentPanel1Y = ((float)mousePosY / (float)pictureBox1.Height);
 
-            // drawing a horizontal line to the bitmap image
-            using (Graphics g = Graphics.FromImage(futureImage))
-            {
-                // 100 -> temp
-                int step = 10;
+            // making the quantity form window appear
+            quantityForm x = new quantityForm();
+            x.ShowDialog();
+            x.Dispose();
 
-                // going from 0° to 360*2° (aka from nothing to full circle)
-                for (int i = 0; i < 360*2; i+=step)
+            if (quantityTemp != 0)
+            {
+
+                // drawing a horizontal line to the bitmap image
+                using (Graphics g = Graphics.FromImage(futureImage))
                 {
-                    g.DrawLine
-                    (
-                        new Pen(Brushes.Red, 1),
-                        (percentPanel1X * futureImage.Width), (percentPanel1Y * futureImage.Height),
-                        (percentPanel1X * futureImage.Width + (float)(Math.Cos(i) * futureImage.Width))*2, 
-                        (percentPanel1Y * futureImage.Height + (float)(Math.Sin(i) * futureImage.Height))
-                    );
+                    // 100 -> temp
+                    int step = quantityTemp;
+
+                    // going from 0° to 360*2° (aka from nothing to full circle)
+                    for (int i = 0; i < 360 * 2; i += step)
+                    {
+                        g.DrawLine
+                        (
+                            new Pen(Brushes.Red, 0.1f),
+                            (percentPanel1X * futureImage.Width), (percentPanel1Y * futureImage.Height),
+                            (percentPanel1X * futureImage.Width + (float)(Math.Cos(i) * futureImage.Width)) * 10,
+                            (percentPanel1Y * futureImage.Height + (float)(Math.Sin(i) * futureImage.Height)) * 10
+                        );
+                    }
                 }
             }
 
             pictureBox1.Image = futureImage;
+            
+            // reset it!
+            quantityTemp = 0;
         }
 
         private void bunchOfHorizontalLinesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // temp
-            int step = 30;
 
-            using (Graphics g = Graphics.FromImage(futureImage))
+            // making the quantity form window appear
+            quantityForm x = new quantityForm();
+            x.ShowDialog();
+            x.Dispose();
+
+            if (quantityTemp != 0)
             {
-                // going from 0° to 360*2° (aka from nothing to full circle)
-                for (int i = 0; i < futureImage.Height; i += step)
-                {
-                    g.DrawLine
-                    (
-                        new Pen(Brushes.Red, 1),
-                        (0), (i),
-                        (futureImage.Width), (i)
-                    );
-                }
-            }
+                // temp
+                int step = quantityTemp;
 
+                using (Graphics g = Graphics.FromImage(futureImage))
+                {
+                    // going from 0° to 360*2° (aka from nothing to full circle)
+                    for (int i = 0; i < futureImage.Height; i += step)
+                    {
+                        g.DrawLine
+                        (
+                            new Pen(Brushes.Red, 1),
+                            (0), (i),
+                            (futureImage.Width), (i)
+                        );
+                    }
+                }
+            }    
             pictureBox1.Image = futureImage;
         }
 
